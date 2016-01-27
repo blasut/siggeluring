@@ -24,7 +24,7 @@ public class Services {
     public final static Services INSTANCE = new Services();
     private final static Vertx vertx = Vertx.vertx();
     private final static String fileName = "target/classes/services.json";
-    
+
     private Services() {
         // Detta är en singleton class, vilket innebär att endast en instansiering finns tillgänglig
         initServicesMap();
@@ -59,6 +59,17 @@ public class Services {
         save_to_file();
     }
 
+    public void save_to_file() {
+        // Vi kan göra såhär pga singletonen är garanterat att endast en instans finns på hela JVMen.
+        Buffer servicesBuffer = Buffer.buffer(getAllAsJson());
+        vertx.fileSystem().writeFile(fileName, servicesBuffer, result -> {
+                if (result.succeeded()) {
+                    System.out.println("File written");
+                } else {
+                    System.err.println("Oh oh ..." + result.cause());
+                }
+            });
+    }
 
     /*
       This passes the tests, but can probably be made nicer. It should be initiated in one go
@@ -72,17 +83,5 @@ public class Services {
 
     private ArrayList getServicesList() {
         return servicesMap.get("services");
-    }
-
-    private void save_to_file() {
-        // Vi kan göra såhär pga singletonen är garanterat att endast en instans finns på hela JVMen.
-        Buffer servicesBuffer = Buffer.buffer(getAllAsJson());
-        vertx.fileSystem().writeFile(fileName, servicesBuffer, result -> {
-                if (result.succeeded()) {
-                    System.out.println("File written");
-                } else {
-                    System.err.println("Oh oh ..." + result.cause());
-                }
-            });
     }
 }
