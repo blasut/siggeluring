@@ -46,4 +46,13 @@ public class ServicesTest {
         Assert.assertTrue("services.all is empty", services.all().isEmpty());
     }
 
+    @Test
+    public void servicesShouldReturnJsonEncodedVersion() {
+        Services services = Services.INSTANCE;
+        Service service = new Service("mjau", "Mjausson");
+        services.add(service);
+        services.getAllAsJson();
+        // TOOD: implement this test
+    }
+
 }
