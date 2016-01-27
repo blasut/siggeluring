@@ -1,10 +1,16 @@
 # siggeluring
 
-# Install & Use
+# Installera & Använd
+- Git clona denna repo
+- mvn clean compile
+- mvn clean package
 
-## Install & run
+## Installera & kör
 
-## Use
+## Använd
+Ladda ner (länk till binary) filen och kör med:
+
+java -jar siggeluring-1.0.jar
 
 # Vad?
 
